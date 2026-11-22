@@ -233,7 +233,7 @@ AVISOS=""
 # arquivos dele no sistema): numa segunda execução, a cópia seria só lixo.
 backup() {
 	case "$1" in
-	"$CASA"/*|*/30-x230.conf|*/50-sem-hibernar.rules) return 0 ;;
+	"$CASA"/*|*/30-x230.conf|*/50-sem-hibernar.rules|*/50-discos-removiveis.rules) return 0 ;;
 	esac
 	[ -e "$1" ] && [ ! -e "$1.orig" ] && cp -p "$1" "$1.orig"
 	return 0
@@ -437,6 +437,21 @@ polkit.addRule(function(action, subject) {
 });
 EOF
 chmod 644 /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules
+
+# Pendrives e discos externos: montar, desmontar e ejetar pelo Dolphin e pela
+# bandeja sem senha, para quem está no grupo operator e na sessão local ativa.
+# Sem a regra, o Plasma acusa "Você não está autorizado a remover este dispositivo".
+msg "Pendrives sem senha para o grupo operator (polkit)"
+put /usr/local/etc/polkit-1/rules.d/50-discos-removiveis.rules <<'EOF'
+// Montar, desmontar e ejetar discos removíveis (BSDisks) sem senha.
+polkit.addRule(function(action, subject) {
+	if (action.id.indexOf("org.freedesktop.udisks2.") == 0 &&
+	    subject.local && subject.active && subject.isInGroup("operator")) {
+		return polkit.Result.YES;
+	}
+});
+EOF
+chmod 644 /usr/local/etc/polkit-1/rules.d/50-discos-removiveis.rules
 
 # Na tela de login a regra acima não vale (o SDDM roda como root), e lá o
 # botão Hibernar desliga a máquina de uma vez: usa uma cópia do tema sem ele.
