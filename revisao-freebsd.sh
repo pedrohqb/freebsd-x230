@@ -12,8 +12,9 @@ ruim() { falta=$((falta+1)); printf '  FALTA: %s\n' "$*"; }
 echo "== Pacotes (as listas do freebsd-x230.sh)"
 ORIGENS="$(awk "/^PKG_[A-Z]*='/{f=1; next} f && /^'/{f=0} f" "$SCRIPT" |
 	sed -e 's/#.*//' -e 's/[[:space:]]*$//' -e '/^$/d')"
+INSTALADOS="$(pkg query '%o' 2>/dev/null)"
 for o in $ORIGENS; do
-	if pkg info -e -O "$o" >/dev/null 2>&1; then bom; else ruim "pacote $o"; fi
+	if printf '%s\n' "$INSTALADOS" | grep -qxF "$o"; then bom; else ruim "pacote $o"; fi
 done
 
 echo "== Serviços ativados no boot"

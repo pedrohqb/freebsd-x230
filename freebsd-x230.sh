@@ -244,7 +244,8 @@ linha() {
 }
 
 # Instala os pacotes de uma lista, um a um, sem parar se algum não existir.
-instalado() { pkg info -e -O "$1" >/dev/null 2>&1; }
+# Confere pela lista de origens instaladas (pkg query %o), comparando a linha inteira.
+instalado() { pkg query '%o' 2>/dev/null | grep -qxF "$1"; }
 install_list() {
 	printf '%s\n' "$1" | sed -e 's/#.*//' -e 's/[[:space:]]*$//' -e '/^$/d' |
 	while read -r origem; do
