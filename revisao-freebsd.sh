@@ -60,6 +60,8 @@ if [ "$(sysrc -n sddm_lang 2>/dev/null)" = "pt_BR" ]; then bom; else ruim "tela 
 
 if grep -q '^XLbInptScrollOnButtonDown=true' "$HOME/.config/kcminputrc" 2>/dev/null; then bom; else ruim "rolagem do TrackPoint no Plasma (kcminputrc)"; fi
 
+if grep -q '^increase_volume=Volume Up' "$HOME/.config/kglobalshortcutsrc" 2>/dev/null; then bom; else ruim "atalhos das teclas de volume (Configurações > Atalhos > Volume do áudio > Padrões)"; fi
+
 echo "== Usuário e sistema"
 for g in wheel operator video webcamd; do
 	if id -Gn | tr ' ' '\n' | grep -qx "$g"; then bom; else ruim "grupo $g"; fi
