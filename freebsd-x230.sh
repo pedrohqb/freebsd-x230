@@ -83,7 +83,7 @@ x11-fonts/nerd-fonts-meslo               # MesloLGS Nerd Font (a do terminal do 
 multimedia/gstreamer1-libav              # GStreamer libav: decodificadores do FFmpeg
 multimedia/gstreamer1-plugins-bad        # GStreamer: plugins extras
 multimedia/gstreamer1-plugins-ugly       # GStreamer: MP3, DVD e outros formatos
-multimedia/libdvdcss                     # libdvdcss: DVDs de vídeo comerciais
+# (libdvdcss, para DVDs de vídeo comerciais, não sai em pacote: veja o README)
 archivers/unzip                          # unzip: extrai arquivos .zip
 archivers/7-zip                          # 7-Zip: compacta e extrai .7z e outros formatos
 archivers/unrar                          # unrar: extrai arquivos .rar
