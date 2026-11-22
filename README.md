@@ -102,7 +102,7 @@ O PJeOffice roda no OpenJDK 11, sem alteração no `.jar` do CNJ. O script troca
 2. Vídeo (`kldstat | grep i915`) e sessão Plasma (X11).
 3. Wi-Fi e NetworkMgr no painel.
 4. Suspensão pela tampa e volta com a tela bloqueada.
-5. Teclas de brilho e volume da ThinkPad.
+5. Teclas de brilho e volume da ThinkPad. Se as de volume não fizerem nada, vá em Configurações do sistema → Teclado → Atalhos → Volume do áudio, clique em **Padrões** e em **Aplicar**. O botão de silenciar o microfone não é reconhecido pelo FreeBSD (nem pelo OpenBSD).
 6. TrackPoint com rolagem e toque no touchpad.
 7. Áudio, microfone e webcam (Firefox e Chromium).
 8. Pendrive pelo Dolphin.

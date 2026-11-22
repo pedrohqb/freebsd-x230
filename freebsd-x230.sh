@@ -472,7 +472,7 @@ EOF
 cap_mkdb "$CASA/.login_conf"
 
 CFG="$CASA/.config"
-msg "Plasma: teclado $XKB_LAYOUT $XKB_VARIANT, idioma, TrackPoint e bloqueio ao suspender"
+msg "Plasma: teclado $XKB_LAYOUT $XKB_VARIANT, idioma, TrackPoint, teclas de volume e bloqueio ao suspender"
 put "$CFG/kxkbrc" <<EOF
 [Layout]
 LayoutList=$XKB_LAYOUT
@@ -484,6 +484,16 @@ EOF
 # TrackPoint que o Xorg já deixava ligada; esta é a chave que a tela de Mouse grava.
 if command -v kwriteconfig6 >/dev/null 2>&1; then
 	kwriteconfig6 --file "$CFG/kcminputrc" --group Mouse --key XLbInptScrollOnButtonDown true
+	# No X230 os atalhos das teclas de volume vieram vazios; estes são os de
+	# fábrica (o que o botão "Padrões" da tela de Atalhos restaura).
+	for a in "increase_volume=Volume Up,Volume Up,Aumentar volume" \
+	         "decrease_volume=Volume Down,Volume Down,Diminuir volume" \
+	         "increase_volume_small=Shift+Volume Up,Shift+Volume Up,Aumenta o volume em 1%" \
+	         "decrease_volume_small=Shift+Volume Down,Shift+Volume Down,Diminui o volume em 1%" \
+	         "mute=Volume Mute,Volume Mute,Silenciar"; do
+		kwriteconfig6 --file "$CFG/kglobalshortcutsrc" --group kmix --key "${a%%=*}" "${a#*=}"
+	done
+	kwriteconfig6 --file "$CFG/kglobalshortcutsrc" --group kmix --key _k_friendly_name "Volume do áudio"
 else
 	warn "kwriteconfig6 não encontrado: ligue a rolagem do TrackPoint em Configurações > Mouse e touchpad"
 fi
