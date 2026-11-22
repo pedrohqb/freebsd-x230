@@ -13,6 +13,7 @@ O script instala os programas e configura o sistema e a sessão. As listas ficam
 | `freebsd-x230.sh` | Pós-instalação: atualiza o sistema, instala firmware e pacotes e configura vídeo, serviços, energia, teclado, TrackPoint, permissões, sudo, idioma, tema do Plasma e atalhos de aplicativos web |
 | `revisao-freebsd.sh` | Revisão: confere pacotes, serviços, ajustes e arquivos, sem alterar nada, e lista o que falta |
 | `pjeoffice-freebsd.sh` | Instala o PJeOffice Pro do CNJ na pasta pessoal, rodando no OpenJDK 11 do FreeBSD |
+| `sddm-sem-hibernar.sh` | Tira o botão Hibernar da tela de login; rode de novo depois de atualizar o Plasma |
 | `opensc-java.c` | Biblioteca que o script do PJeOffice compila para o Java assinar com token do OpenSC |
 
 ## Uso
@@ -86,6 +87,7 @@ O PJeOffice roda no OpenJDK 11, sem alteração no `.jar` do CNJ. O script troca
 - **DVDs de vídeo comerciais:** a `libdvdcss` não é distribuída em pacote, por causa da licença. Para tê-la, compile o port: `sudo make -C /usr/ports/multimedia/libdvdcss install clean` (com a árvore de ports baixada).
 - **e-SAJ:** a extensão [Jamegão](https://github.com/pedrohqb/jamegao) substitui o WebSigner no Firefox e no Chromium, com certificado A1.
 - **Spotify:** não há cliente oficial. O player web exige o Widevine, que só se instala compilando os ports `www/linux-widevine-cdm` e `www/foreign-cdm` (licença do Google). O YouTube Music funciona como aplicativo web.
+- **Hibernar:** o FreeBSD não hiberna, mas o firmware anuncia a hibernação. No Plasma, uma regra do polkit esconde a opção. Na tela de login, onde a regra não vale porque o SDDM roda como root, apertar Hibernar desliga a máquina de uma vez; por isso o script usa uma cópia do tema Brisa sem o botão. Depois de atualizar o Plasma, rode `sudo sh sddm-sem-hibernar.sh` para refazer a cópia.
 - **Atualizações e volta atrás:** `sudo freebsd-update fetch install` e `sudo pkg upgrade`. Antes de uma atualização grande, `sudo bectl create antes-da-atualizacao` cria um ambiente de boot; se algo quebrar, escolha-o no menu do carregador do FreeBSD.
 - **Wi-Fi:** o instalador grava a rede. Para outras redes, use o NetworkMgr no painel ou acrescente-as em `/etc/wpa_supplicant.conf`.
 - **VPN WireGuard:** o WireGuard faz parte do kernel; o `wireguard-tools` traz o `wg-quick`. Guarde o `.conf` como `/usr/local/etc/wireguard/wg0.conf`, com permissão `600`, e use `sudo wg-quick up wg0` e `sudo wg-quick down wg0`.
