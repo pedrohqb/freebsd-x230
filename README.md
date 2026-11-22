@@ -74,7 +74,7 @@ O PJeOffice roda no OpenJDK 11, sem alteração no `.jar` do CNJ. O script troca
 - **Vídeo e sessão:** driver Intel (`i915kms`), Xorg, Plasma 6 e tela de login SDDM.
 - **Energia:** `powerd` (frequência automática), suspensão ao fechar a tampa, tela bloqueada ao voltar e sem a opção de hibernar, que o FreeBSD não tem.
 - **Entrada:** teclado inglês internacional com teclas mortas, no console, na tela de login e no Plasma; TrackPoint e touchpad como aparelhos separados, rolagem segurando o botão do meio do TrackPoint (no Xorg e nas configurações do Plasma, que senão a desliga no login) e toque para clicar no touchpad.
-- **Permissões:** pendrives, discos externos e gravador de CD/DVD para o grupo `operator`, montagem sem root e webcam pelo `webcamd`.
+- **Permissões:** pendrives, discos externos e gravador de CD/DVD para o grupo `operator`, montagem sem root, montar e ejetar pelo Dolphin sem senha (regra do polkit), FUSE carregado para exFAT e NTFS e webcam pelo `webcamd`.
 - **Usuário:** fish como shell, Plasma e tela de login em português do Brasil, tema Brisa escuro e pastas pessoais criadas no primeiro login.
 - **Aplicativos web:** ChatGPT, Claude, Discord e YouTube Music no Chromium, em janela própria, e Zoom no Firefox.
 
