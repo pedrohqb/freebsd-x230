@@ -71,10 +71,10 @@ O PJeOffice roda no OpenJDK 11, sem alteração no `.jar` do CNJ. O script troca
 
 - **Sistema:** `freebsd-update`, pacotes atualizados, firmware (`fwget`), microcódigo Intel, `sudo` para o grupo `wheel`, `atime=off` no ZFS e cache do ZFS limitado a 25% da RAM.
 - **Vídeo e sessão:** driver Intel (`i915kms`), Xorg, Plasma 6 e tela de login SDDM.
-- **Energia:** `powerd` (frequência automática), suspensão ao fechar a tampa e tela bloqueada ao voltar.
+- **Energia:** `powerd` (frequência automática), suspensão ao fechar a tampa, tela bloqueada ao voltar e sem a opção de hibernar, que o FreeBSD não tem.
 - **Entrada:** teclado inglês internacional com teclas mortas, no console, na tela de login e no Plasma; TrackPoint e touchpad como aparelhos separados, rolagem segurando o botão do meio do TrackPoint e toque para clicar no touchpad (na sessão X11).
 - **Permissões:** pendrives, discos externos e gravador de CD/DVD para o grupo `operator`, montagem sem root e webcam pelo `webcamd`.
-- **Usuário:** fish como shell, Plasma em português do Brasil, tema Brisa escuro e pastas pessoais criadas no primeiro login.
+- **Usuário:** fish como shell, Plasma e tela de login em português do Brasil, tema Brisa escuro e pastas pessoais criadas no primeiro login.
 - **Aplicativos web:** ChatGPT, Claude, Discord e YouTube Music no Chromium, em janela própria, e Zoom no Firefox.
 
 ## Observações

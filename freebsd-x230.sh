@@ -321,7 +321,7 @@ sysrc dbus_enable="YES" sddm_enable="YES" cupsd_enable="YES" \
       pcscd_enable="YES" webcamd_enable="YES" powerd_enable="YES" \
       powerd_flags="-a hiadaptive -b adaptive" \
       keymap="$CONSOLE_KEYMAP" clear_tmp_enable="YES" \
-      devfs_system_ruleset="localrules" >/dev/null &&
+      devfs_system_ruleset="localrules" sddm_lang="${IDIOMA%%.*}" >/dev/null &&
 	info "dbus, sddm, cupsd, pcscd, webcamd e powerd ativados no boot" ||
 	warn "não consegui gravar o /etc/rc.conf"
 
@@ -407,6 +407,20 @@ Section "InputClass"
 	Option "ScrollButton" "2"
 EndSection
 EOF
+
+# O FreeBSD não hiberna (S4). Sem esta regra, a tela de login e o menu de saída
+# do Plasma oferecem "Hibernar", que não funciona.
+msg "Sem a opção de hibernar (polkit)"
+put /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules <<'EOF'
+// O FreeBSD não hiberna: esconde Hibernar e Suspensão híbrida.
+polkit.addRule(function(action, subject) {
+	if (action.id.indexOf("org.freedesktop.consolekit.system.hibernate") == 0 ||
+	    action.id.indexOf("org.freedesktop.consolekit.system.hybridsleep") == 0) {
+		return polkit.Result.NO;
+	}
+});
+EOF
+chmod 644 /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules
 
 # Teclado internacional já na tela de login.
 msg "Teclado na tela de login (SDDM)"
