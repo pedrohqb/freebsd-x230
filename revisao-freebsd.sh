@@ -45,6 +45,7 @@ if grep -q '^vfs.zfs.arc.max=' /etc/sysctl.conf 2>/dev/null; then bom; else ruim
 echo "== Arquivos de configuração"
 for f in /etc/devfs.rules /usr/local/etc/sudoers.d/wheel \
          /usr/local/etc/X11/xorg.conf.d/30-x230.conf \
+         /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules \
          "$HOME/.login_conf" "$HOME/.config/kxkbrc" "$HOME/.config/plasma-localerc" \
          "$HOME/.config/kscreenlockerrc"; do
 	if [ -e "$f" ]; then bom; else ruim "arquivo $f"; fi
@@ -53,6 +54,8 @@ for a in chatgpt claude discord ytmusic zoom; do
 	f="$HOME/.local/share/applications/webapp-$a.desktop"
 	if [ -e "$f" ]; then bom; else ruim "atalho web $a"; fi
 done
+
+if [ "$(sysrc -n sddm_lang 2>/dev/null)" = "pt_BR" ]; then bom; else ruim "tela de login em português (sddm_lang)"; fi
 
 echo "== Usuário e sistema"
 for g in wheel operator video webcamd; do
