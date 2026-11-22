@@ -11,7 +11,8 @@
 #   su -m root -c 'sh freebsd-x230.sh pedro'                                   #
 #                                                                              #
 # - Pode ser executado mais de uma vez: pacotes já instalados são pulados e    #
-#   todo arquivo de configuração alterado ganha antes uma cópia .orig.         #
+#   todo arquivo do sistema alterado ganha antes uma cópia .orig, com o        #
+#   conteúdo original da instalação.                                           #
 # - Pacote que não existir na sua versão não interrompe o script: ele entra    #
 #   num resumo no fim.                                                         #
 # - As listas usam a origem do pacote (categoria/nome), que é estável entre    #
@@ -228,7 +229,15 @@ warn() { printf '    AVISO: %s\n' "$*" >&2; AVISOS="${AVISOS}
 AVISOS=""
 
 # Guarda uma cópia .orig antes da primeira alteração de um arquivo existente.
-backup() { [ -e "$1" ] && [ ! -e "$1.orig" ] && cp -p "$1" "$1.orig"; return 0; }
+# Não copia os arquivos que o próprio script cria (na pasta pessoal e os dois
+# arquivos dele no sistema): numa segunda execução, a cópia seria só lixo.
+backup() {
+	case "$1" in
+	"$CASA"/*|*/30-x230.conf|*/50-sem-hibernar.rules) return 0 ;;
+	esac
+	[ -e "$1" ] && [ ! -e "$1.orig" ] && cp -p "$1" "$1.orig"
+	return 0
+}
 
 # Grava a entrada padrão no arquivo indicado, criando a pasta e a cópia .orig.
 put() {
