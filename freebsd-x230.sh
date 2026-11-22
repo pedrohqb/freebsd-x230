@@ -338,12 +338,18 @@ sysrc dbus_enable="YES" sddm_enable="YES" cupsd_enable="YES" \
 	warn "não consegui gravar o /etc/rc.conf"
 
 # Boot: TrackPoint e touchpad como aparelhos separados, teclas da ThinkPad,
-# brilho, câmera USB (cuse), sensores e microcódigo.
+# brilho, câmera USB (cuse), sensores e microcódigo. Sem as zonas térmicas do
+# ACPI: depois da suspensão, a tz0 do X230 com Skulls passa a ler 128,1 °C fixos,
+# e o FreeBSD desligava a máquina. A ventoinha é controlada pelo próprio
+# controlador da ThinkPad, e o processador se protege sozinho contra calor real
+# (reduz a frequência e, no limite, desliga); a temperatura do processador
+# continua em dev.cpu.N.temperature (coretemp).
 msg "Boot (/boot/loader.conf)"
 for l in 'hw.psm.synaptics_support="1"' 'hw.psm.trackpoint_support="1"' \
          'acpi_ibm_load="YES"' 'acpi_video_load="YES"' 'cuse_load="YES"' \
          'coretemp_load="YES"' 'cpu_microcode_load="YES"' \
-         'cpu_microcode_name="/boot/firmware/intel-ucode.bin"'; do
+         'cpu_microcode_name="/boot/firmware/intel-ucode.bin"' \
+         'debug.acpi.disabled="thermal"'; do
 	linha "$l" /boot/loader.conf
 done
 
