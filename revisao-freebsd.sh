@@ -58,6 +58,8 @@ done
 
 if [ "$(sysrc -n sddm_lang 2>/dev/null)" = "pt_BR" ]; then bom; else ruim "tela de login em português (sddm_lang)"; fi
 
+if grep -q '^XLbInptScrollOnButtonDown=true' "$HOME/.config/kcminputrc" 2>/dev/null; then bom; else ruim "rolagem do TrackPoint no Plasma (kcminputrc)"; fi
+
 echo "== Usuário e sistema"
 for g in wheel operator video webcamd; do
 	if id -Gn | tr ' ' '\n' | grep -qx "$g"; then bom; else ruim "grupo $g"; fi

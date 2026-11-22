@@ -460,7 +460,7 @@ EOF
 cap_mkdb "$CASA/.login_conf"
 
 CFG="$CASA/.config"
-msg "Plasma: teclado $XKB_LAYOUT $XKB_VARIANT, idioma e bloqueio ao suspender"
+msg "Plasma: teclado $XKB_LAYOUT $XKB_VARIANT, idioma, TrackPoint e bloqueio ao suspender"
 put "$CFG/kxkbrc" <<EOF
 [Layout]
 LayoutList=$XKB_LAYOUT
@@ -468,6 +468,13 @@ VariantList=$XKB_VARIANT
 ResetOldOptions=true
 Use=true
 EOF
+# O Plasma (X11) aplica a configuração dele no login e desligava a rolagem pelo
+# TrackPoint que o Xorg já deixava ligada; esta é a chave que a tela de Mouse grava.
+if command -v kwriteconfig6 >/dev/null 2>&1; then
+	kwriteconfig6 --file "$CFG/kcminputrc" --group Mouse --key XLbInptScrollOnButtonDown true
+else
+	warn "kwriteconfig6 não encontrado: ligue a rolagem do TrackPoint em Configurações > Mouse e touchpad"
+fi
 put "$CFG/plasma-localerc" <<EOF
 [Formats]
 LANG=$IDIOMA
