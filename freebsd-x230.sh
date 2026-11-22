@@ -422,6 +422,16 @@ polkit.addRule(function(action, subject) {
 EOF
 chmod 644 /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules
 
+# Na tela de login a regra acima não vale (o SDDM roda como root), e lá o
+# botão Hibernar desliga a máquina de uma vez: usa uma cópia do tema sem ele.
+msg "Tela de login sem o botão Hibernar"
+if [ -f "$(dirname "$0")/sddm-sem-hibernar.sh" ]; then
+	sh "$(dirname "$0")/sddm-sem-hibernar.sh" | sed 's/^/    /' ||
+		warn "não consegui tirar o Hibernar da tela de login"
+else
+	warn "sddm-sem-hibernar.sh não está ao lado deste script"
+fi
+
 # Teclado internacional já na tela de login.
 msg "Teclado na tela de login (SDDM)"
 XSETUP=/usr/local/share/sddm/scripts/Xsetup
