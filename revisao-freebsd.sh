@@ -26,6 +26,10 @@ case " $(sysrc -n kld_list 2>/dev/null) " in
 *) ruim "i915kms em kld_list (vídeo Intel)" ;;
 esac
 if kldstat -q -n i915kms; then bom; else ruim "módulo de vídeo i915kms carregado"; fi
+case " $(sysrc -n kld_list 2>/dev/null) " in
+*" fusefs "*) bom ;;
+*) ruim "fusefs em kld_list (pendrives em exFAT e discos em NTFS)" ;;
+esac
 
 echo "== Boot (/boot/loader.conf)"
 for l in hw.psm.synaptics_support hw.psm.trackpoint_support acpi_ibm_load \

@@ -325,7 +325,7 @@ install_list "$PKG_GUI"
 # ------------------------------------------------------------------------------
 msg "Serviços (/etc/rc.conf)"
 backup /etc/rc.conf
-sysrc kld_list+="i915kms" >/dev/null           # vídeo Intel
+sysrc kld_list+="i915kms fusefs" >/dev/null    # vídeo Intel; FUSE para exFAT e NTFS
 # powerd em "adaptive" também na tomada: com "hiadaptive", o X230 chegou a 100 °C
 # com vídeo do YouTube e desligou pela proteção térmica.
 sysrc dbus_enable="YES" sddm_enable="YES" cupsd_enable="YES" \
@@ -394,6 +394,8 @@ echo '%wheel ALL=(ALL:ALL) ALL' > /usr/local/etc/sudoers.d/00-wheel
 rm -f /usr/local/etc/sudoers.d/wheel /usr/local/etc/sudoers.d/wheel.orig
 chmod 440 /usr/local/etc/sudoers.d/*
 visudo -c >/dev/null 2>&1 || warn "o visudo -c acusou erro; rode 'visudo -c' para ver qual arquivo"
+
+kldload -n fusefs 2>/dev/null || true
 
 msg "ZFS sem atime (menos gravações no SSD)"
 if zpool list zroot >/dev/null 2>&1; then
