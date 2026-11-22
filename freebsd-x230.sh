@@ -326,9 +326,11 @@ install_list "$PKG_GUI"
 msg "Serviços (/etc/rc.conf)"
 backup /etc/rc.conf
 sysrc kld_list+="i915kms" >/dev/null           # vídeo Intel
+# powerd em "adaptive" também na tomada: com "hiadaptive", o X230 chegou a 100 °C
+# com vídeo do YouTube e desligou pela proteção térmica.
 sysrc dbus_enable="YES" sddm_enable="YES" cupsd_enable="YES" \
       pcscd_enable="YES" webcamd_enable="YES" powerd_enable="YES" \
-      powerd_flags="-a hiadaptive -b adaptive" \
+      powerd_flags="-a adaptive -b adaptive" \
       keymap="$CONSOLE_KEYMAP" clear_tmp_enable="YES" \
       devfs_system_ruleset="localrules" sddm_lang="${IDIOMA%%.*}" >/dev/null &&
 	info "dbus, sddm, cupsd, pcscd, webcamd e powerd ativados no boot" ||
