@@ -43,7 +43,7 @@ done
 if grep -q '^vfs.zfs.arc.max=' /etc/sysctl.conf 2>/dev/null; then bom; else ruim "limite do cache do ZFS em /etc/sysctl.conf"; fi
 
 echo "== Arquivos de configuração"
-for f in /etc/devfs.rules /usr/local/etc/sudoers.d/wheel \
+for f in /etc/devfs.rules /usr/local/etc/sudoers.d/00-wheel \
          /usr/local/etc/X11/xorg.conf.d/30-x230.conf \
          /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules \
          /usr/local/etc/sddm.conf.d/zz-x230-tema.conf \
