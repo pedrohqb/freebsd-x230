@@ -372,12 +372,14 @@ for g in wheel operator video webcamd; do
 	pw groupmod "$g" -m "$ALVO" 2>/dev/null || warn "não consegui pôr $ALVO no grupo $g"
 done
 
+# Sem cópia .orig aqui: tudo em sudoers.d é lido pelo sudo. O visudo também
+# exige modo 0440 nos arquivos da pasta (o do NetworkMgr vem com 0644).
 msg "sudo para o grupo wheel"
-put /usr/local/etc/sudoers.d/wheel <<'EOF'
-%wheel ALL=(ALL:ALL) ALL
-EOF
-chmod 440 /usr/local/etc/sudoers.d/wheel
-visudo -c >/dev/null 2>&1 || warn "sudoers com erro de sintaxe; confira /usr/local/etc/sudoers.d/wheel"
+mkdir -p /usr/local/etc/sudoers.d
+echo '%wheel ALL=(ALL:ALL) ALL' > /usr/local/etc/sudoers.d/wheel
+rm -f /usr/local/etc/sudoers.d/wheel.orig
+chmod 440 /usr/local/etc/sudoers.d/*
+visudo -c >/dev/null 2>&1 || warn "o visudo -c acusou erro; rode 'visudo -c' para ver qual arquivo"
 
 msg "ZFS sem atime (menos gravações no SSD)"
 if zpool list zroot >/dev/null 2>&1; then
