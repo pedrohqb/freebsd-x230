@@ -4,7 +4,7 @@ FreeBSD 15 com KDE Plasma no ThinkPad X230: pós-instalação, revisão e PJeOff
 
 O script instala os programas e configura o sistema e a sessão. As listas ficam dentro dele, por categoria e com a descrição de cada pacote, seguindo o `plasma.Brewfile` do repositório [brewfile](https://github.com/pedrohqb/brewfile) e a lista do CachyOS do [package-list](https://github.com/pedrohqb/package-list), com equivalentes para o que não existe no FreeBSD.
 
-> **Estado:** escrito para o X230 a partir do que funciona no [openbsd-x230](https://github.com/pedrohqb/openbsd-x230), com os nomes dos pacotes conferidos na árvore de ports (ramo 2026Q4), mas **ainda não testado na máquina**. A lista do que testar está no fim.
+> **Estado:** instalado e testado no X230 em novembro de 2026 (FreeBSD 15.1, Plasma 6.7). O que já foi conferido e o que falta testar estão no fim.
 
 ## Arquivos
 
@@ -97,18 +97,24 @@ O PJeOffice roda no OpenJDK 11, sem alteração no `.jar` do CNJ. O script troca
 - **OneDrive:** o mesmo cliente do CachyOS (`onedrive`) ou, para copiar sob demanda, o `rclone config` com "Microsoft OneDrive".
 - **Token ePass2003 no Firefox:** Configurações → Privacidade e Segurança → Dispositivos de segurança → Carregar: `/usr/local/lib/pkcs11/opensc-pkcs11.so`.
 
-## O que testar na máquina
+## Testado no X230
 
-1. Boot pelo menu do SeaBIOS e senha do GELI.
-2. Vídeo (`kldstat | grep i915`) e sessão Plasma (X11).
-3. Wi-Fi e NetworkMgr no painel.
-4. Suspensão pela tampa e volta com a tela bloqueada.
-5. Teclas de brilho e volume da ThinkPad. Se as de volume não fizerem nada, vá em Configurações do sistema → Teclado → Atalhos → Volume do áudio, clique em **Padrões** e em **Aplicar**. O botão de silenciar o microfone não é reconhecido pelo FreeBSD (nem pelo OpenBSD).
-6. TrackPoint com rolagem e toque no touchpad.
-7. Áudio, microfone e webcam (Firefox e Chromium).
-8. Pendrive pelo Dolphin.
-9. PJeOffice com A1 e com o token, e o corte de vídeo por trechos.
-10. Teams e compartilhamento de tela.
+Funciona:
+
+- Boot pelo menu do SeaBIOS, com a senha do GELI.
+- Vídeo Intel e Plasma, nas sessões X11 e Wayland.
+- Wi-Fi (`iwm`, Intel 7265) e NetworkMgr na bandeja.
+- Suspensão pela tampa e pelo menu, com a tela bloqueada na volta.
+- Teclas de brilho, volume e mudo (o botão de silenciar o microfone não é reconhecido).
+- TrackPoint com rolagem pelo botão do meio.
+- Som, microfone (aparelho 1) e webcam, no Firefox e no Chromium.
+- Pendrive em exFAT e FAT pelo Dolphin, com montagem e ejeção sem senha.
+
+Falta testar:
+
+- PJeOffice Pro com A1 e com o token, e o corte de vídeo por trechos.
+- Teams e compartilhamento de tela.
+- VPN WireGuard, impressora de rede e pastas Samba.
 
 ## Licença
 
