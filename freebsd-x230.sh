@@ -210,13 +210,14 @@ emulators/wine                           # Wine: programas do Windows (no lugar 
 
 # Aplicativos web: id|Nome|URL|ícone|categorias|navegador
 # Ícone "site:dominio": baixa o ícone do próprio site.
-# Navegador "app": janela própria no $WEBAPP_BROWSER; "firefox": janela do Firefox.
+# Navegador "app": janela própria no $WEBAPP_BROWSER; "firefox": janela do Firefox
+# (no FreeBSD a câmera funciona no Chromium, então todos ficam nele).
 WEBAPPS='
 chatgpt|ChatGPT|https://chatgpt.com/|site:chatgpt.com|Network;|app
 claude|Claude|https://claude.ai/|site:claude.ai|Network;|app
 discord|Discord|https://discord.com/app|site:discord.com|Network;InstantMessaging;|app
 ytmusic|YouTube Music|https://music.youtube.com/|site:music.youtube.com|AudioVideo;Audio;|app
-zoom|Zoom|https://app.zoom.us/wc|site:zoom.us|Network;VideoConference;|firefox
+zoom|Zoom|https://app.zoom.us/wc|site:zoom.us|Network;VideoConference;|app
 '
 
 # ------------------------------------------------------------------------------
@@ -530,7 +531,7 @@ LockOnResume=true
 Timeout=10
 EOF
 
-msg "Atalhos de aplicativos web ($WEBAPP_BROWSER; Zoom no Firefox)"
+msg "Atalhos de aplicativos web ($WEBAPP_BROWSER)"
 APPS="$CASA/.local/share/applications"
 ICONES="$CASA/.local/share/icons"
 mkdir -p "$APPS" "$ICONES"
