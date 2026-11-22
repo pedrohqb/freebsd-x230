@@ -33,7 +33,7 @@ esac
 
 echo "== Boot (/boot/loader.conf)"
 for l in hw.psm.synaptics_support hw.psm.trackpoint_support acpi_ibm_load \
-         acpi_video_load cuse_load coretemp_load cpu_microcode_load; do
+         acpi_video_load cuse_load coretemp_load cpu_microcode_load debug.acpi.disabled; do
 	if grep -q "^$l=" /boot/loader.conf 2>/dev/null; then bom; else ruim "$l em /boot/loader.conf"; fi
 done
 
