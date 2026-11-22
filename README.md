@@ -83,6 +83,7 @@ O PJeOffice roda no OpenJDK 11, sem alteração no `.jar` do CNJ. O script troca
 - **Sem equivalente no FreeBSD:** ONLYOFFICE, PDFsam Basic, Tessera e tudo o que é Flatpak (o FreeBSD não tem Flatpak), Mission Center, Gear Lever, Distrobox e os drivers SafeNet, SafeSign e SerproID. Claude e ChatGPT viram aplicativos web. O port `misc/claude-code` existe, mas não é oficial e altera o programa da Anthropic; ficou de fora.
 - **Brave:** ainda não está nos pacotes trimestrais; o Chromium faz o papel dele. Quando o pacote chegar, troque `www/chromium` por `www/brave` e `WEBAPP_BROWSER` por `brave` no topo do script.
 - **GIMP:** o FreeBSD ainda empacota a versão 2.10.
+- **DVDs de vídeo comerciais:** a `libdvdcss` não é distribuída em pacote, por causa da licença. Para tê-la, compile o port: `sudo make -C /usr/ports/multimedia/libdvdcss install clean` (com a árvore de ports baixada).
 - **e-SAJ:** a extensão [Jamegão](https://github.com/pedrohqb/jamegao) substitui o WebSigner no Firefox e no Chromium, com certificado A1.
 - **Spotify:** não há cliente oficial. O player web exige o Widevine, que só se instala compilando os ports `www/linux-widevine-cdm` e `www/foreign-cdm` (licença do Google). O YouTube Music funciona como aplicativo web.
 - **Atualizações e volta atrás:** `sudo freebsd-update fetch install` e `sudo pkg upgrade`. Antes de uma atualização grande, `sudo bectl create antes-da-atualizacao` cria um ambiente de boot; se algo quebrar, escolha-o no menu do carregador do FreeBSD.
