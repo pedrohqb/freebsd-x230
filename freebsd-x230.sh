@@ -374,10 +374,13 @@ done
 
 # Sem cópia .orig aqui: tudo em sudoers.d é lido pelo sudo. O visudo também
 # exige modo 0440 nos arquivos da pasta (o do NetworkMgr vem com 0644).
+# "00-" para vir antes dos outros: os arquivos são lidos em ordem alfabética e
+# vale a última regra que se encaixa; com outro nome, esta passaria por cima da
+# regra sem senha do NetworkMgr, que então não abre no login.
 msg "sudo para o grupo wheel"
 mkdir -p /usr/local/etc/sudoers.d
-echo '%wheel ALL=(ALL:ALL) ALL' > /usr/local/etc/sudoers.d/wheel
-rm -f /usr/local/etc/sudoers.d/wheel.orig
+echo '%wheel ALL=(ALL:ALL) ALL' > /usr/local/etc/sudoers.d/00-wheel
+rm -f /usr/local/etc/sudoers.d/wheel /usr/local/etc/sudoers.d/wheel.orig
 chmod 440 /usr/local/etc/sudoers.d/*
 visudo -c >/dev/null 2>&1 || warn "o visudo -c acusou erro; rode 'visudo -c' para ver qual arquivo"
 
@@ -534,6 +537,7 @@ Type=Application
 Name=Ajustes do primeiro login
 Exec=$CASA/.local/bin/primeiro-login.sh
 EOF
+rm -f "$CFG/autostart/primeiro-login.desktop.orig"   # a cópia não pode ficar na pasta de início
 
 chown -R "$ALVO:$GRUPO" "$CFG" "$CASA/.local" "$CASA/.login_conf" "$CASA/.login_conf.db"
 
