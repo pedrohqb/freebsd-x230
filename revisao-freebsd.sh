@@ -46,7 +46,7 @@ echo "== Arquivos de configuração"
 for f in /etc/devfs.rules /usr/local/etc/sudoers.d/wheel \
          /usr/local/etc/X11/xorg.conf.d/30-x230.conf \
          /usr/local/etc/polkit-1/rules.d/50-sem-hibernar.rules \
-         /usr/local/etc/sddm.conf.d/10-tema.conf \
+         /usr/local/etc/sddm.conf.d/zz-x230-tema.conf \
          "$HOME/.login_conf" "$HOME/.config/kxkbrc" "$HOME/.config/plasma-localerc" \
          "$HOME/.config/kscreenlockerrc"; do
 	if [ -e "$f" ]; then bom; else ruim "arquivo $f"; fi

@@ -15,7 +15,10 @@
 set -eu
 ORIG=/usr/local/share/sddm/themes/breeze
 COPIA=/usr/local/share/sddm/themes/breeze-x230
-CONF=/usr/local/etc/sddm.conf.d/10-tema.conf
+# "zz-" para vir depois do kde_settings.conf do KDE: o SDDM lê a pasta em
+# ordem alfabética, e o último arquivo vence.
+CONF=/usr/local/etc/sddm.conf.d/zz-x230-tema.conf
+rm -f /usr/local/etc/sddm.conf.d/10-tema.conf
 
 [ "$(id -u)" -eq 0 ] || { echo "Execute como root: sudo sh $0" >&2; exit 1; }
 [ -f "$ORIG/Main.qml" ] || { echo "Tema Brisa do SDDM não encontrado em $ORIG" >&2; exit 1; }
