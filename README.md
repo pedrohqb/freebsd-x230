@@ -4,7 +4,7 @@ FreeBSD 15 com KDE Plasma no ThinkPad X230: pós-instalação, revisão e PJeOff
 
 O script instala os programas e configura o sistema e a sessão. As listas ficam dentro dele, por categoria e com a descrição de cada pacote, seguindo o `plasma.Brewfile` do repositório [brewfile](https://github.com/pedrohqb/brewfile) e a lista do CachyOS do [package-list](https://github.com/pedrohqb/package-list), com equivalentes para o que não existe no FreeBSD.
 
-> **Estado:** instalado e testado no X230 em novembro de 2026 (FreeBSD 15.1, Plasma 6.7). O que já foi conferido e o que falta testar estão no fim.
+> **Arquivado em novembro de 2026.** A instalação funcionou e foi testada no X230 (FreeBSD 15.1, Plasma 6.7), mas foi abandonada por causa do Wi-Fi: no FreeBSD, a placa Intel 7265 só funciona em 802.11a/b/g, tanto com o `iwm` quanto com o `iwlwifi` (o 802.11n/ac do `iwlwifi` vale só para a geração 22000 em diante), e ficou em uns 15 Mbit/s, contra 135 Mbit/s no OpenBSD na mesma máquina. Não há placa mais nova em mini PCIe para trocar. O X230 segue com o [openbsd-x230](https://github.com/pedrohqb/openbsd-x230). Os scripts ficam aqui como registro e para uma eventual volta, quando o FreeBSD suportar 802.11n nessa geração.
 
 ## Arquivos
 
